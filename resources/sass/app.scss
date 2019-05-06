@@ -3,12 +3,97 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+// @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+
+
+// *********** Notes styles
+*{
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
+.content{
+   /*background: pink; */
+  width: 50%;
+  margin: 10% auto;
+
+  > a {
+      font-size: 1.2em;
+  }
+}
+
+table{
+  width: 100%;
+  margin: 10px 0;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+td,th {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+tr:nth-child(even){background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+
+.noteContainer{
+
+}
+
+h1{
+  font-size: 1.5em;
+}
+
+
+input,textarea{
+  width: 100%;
+  font-size: 1.5em;
+  margin: 5px;
+  padding: 10px;
+}
+input[type="submit"]{
+  box-sizing: content-box;
+  background-color: #4CAF50;
+  color: white;
+  border: 0px;
+}
+
+input[type="submit"]:hover{
+  cursor: pointer;
+  background-color: #3a7d3d;
+}
+
+input[type="submit"], button{
+  box-sizing: content-box;
+  background-color: #4CAF50;
+  color: white;
+  border: 0px;
+  font-size: 1em;
+  padding: 10px;
+  width: 20%;
+}
+
+
+
+//
+// .content{
+//   /* background: pink; */
+//   font-size: 1.2em;
+//   width: 40%;
+//   margin: 10% auto;
+//   text-align: justify;
+// }
+//
