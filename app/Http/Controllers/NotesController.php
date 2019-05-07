@@ -2,113 +2,91 @@
 
 namespace App\Http\Controllers;
 
+use App\Note;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class NotesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return view('Note.index');
+        $note = new Note();
+        return view('Note.index')->with('notes',$note->all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('Note.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
-//        $rules = [
-//            'noteTitle' => 'required',
-//            'noteBody' => 'required',
-//        ];
-//        $this->validate($request, $rules);
-
-
-
-        $noteTitle = $request->input('noteTitle');
-        $noteBody = $request->input('noteBody');
-
-        return "do validation and save data into database";
+        //TODO: do validation
+        $note = new Note();
+        $note->noteTitle = $request->input('noteTitle');
+        $note->noteBody = $request->input('noteBody');
+        $isSuccess = $note->save();
+        if($isSuccess){
+            return redirect()->route('Note.index');
+        }
+        $returnString = "Error Occur while saving data: ".$isSuccess;
+        return $returnString;
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        return view('Note.single');
+        $note = new Note();
+        // if not found, exception will be thrown
+        return view('Note.single')->with('note',$note->findOrFail($id));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        return view('Note.edit',['id'=>$id]);
+        $note = new Note();
+        // if not found, exception will be thrown
+        return view('Note.edit')->with('note',$note->findOrFail($id));
     }
 
-    /**
-     * Show the Yes or no form to confirm delete.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function delete($id)
     {
         return view('Note.delete',['id'=>$id]);
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
+        //TODO: do validation
 
-        $noteTitle = $request->input('noteTitle');
-        $noteBody = $request->input('noteBody');
-
-        return "do validation and Update data into database";
+        $note = new Note();
+        $note = $note->findOrFail($id);
+        $note->noteTitle = $request->input('noteTitle');
+        $note->noteBody = $request->input('noteBody');
+        $isSuccess = $note->update();
+        if($isSuccess){
+            return redirect()->route('Note.index');
+        }
+        $returnString = "Error Occur while updating data: ".$isSuccess;
+        return $returnString;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        return 'Remove the Note having id :'.$id;
+        // just delete the give id's note and redirect to home
+        $note = new Note();
+        $note = $note->findOrFail($id);
+        try {
+            if ($note->delete()) {
+                return redirect()->route('Note.index');
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+        return 'Error Occur while deleting data';
     }
 }

@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="noteContainer">
-  <h1>Note Title</h1>
-  <p>Note body</p>
+  <h1>{{$note->noteTitle}}</h1>
+  <p>{{$note->noteBody}}</p>
 </div>
 @endSection
