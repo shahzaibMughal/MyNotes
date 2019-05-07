@@ -3,34 +3,112 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class NotesController extends Controller
 {
-    public function index(){
-      return view('index');
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('Note.index');
     }
-    public function getNote($id){
-      echo "ID: ".$id;
-      return view('viewNote');
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('Note.create');
     }
-    public function createNote(){
-      return view('createNote');
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+//        $rules = [
+//            'noteTitle' => 'required',
+//            'noteBody' => 'required',
+//        ];
+//        $this->validate($request, $rules);
+
+
+
+        $noteTitle = $request->input('noteTitle');
+        $noteBody = $request->input('noteBody');
+
+        return "do validation and save data into database";
+
     }
-    public function store(){
-      return "Store note data to database";
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return view('Note.single');
     }
-    public function editNote($id){
-      echo "ID: ".$id;
-      return view('editNote');
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        return view('Note.edit',['id'=>$id]);
     }
-    public function modify($id){
-      return "Modify Note data in the database";
+
+    /**
+     * Show the Yes or no form to confirm delete.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        return view('Note.delete',['id'=>$id]);
     }
-    public function delete($id){
-      return "Delete note data from database";
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+
+        $noteTitle = $request->input('noteTitle');
+        $noteBody = $request->input('noteBody');
+
+        return "do validation and Update data into database";
     }
-    public function confirmDelete($id){
-      echo "ID: ".$id;
-      return view('deleteNote');
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        return 'Remove the Note having id :'.$id;
     }
 }
